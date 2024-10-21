@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center;
+            align-items: center; /* Center items horizontally */
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            font-size: 48px;
+            margin: 0; /* Remove default margin */
+        }
+
+        #clockContainer {  
+            position: relative;
+            height: 40vw;
+            width: 40vw; 
+            background: url(clock.png) no-repeat;
+            background-size: 100%;
+            display: flex;
+            justify-content: center; /* Center clock hands */
+            align-items: center; /* Center clock hands */
+        }
+
+        #hour, #minute, #second {
+            position: absolute;
+            background: black;
+            border-radius: 10px; 
+            transform-origin: bottom;
+        }
+
+        #hour {
+            width: 1.8%;
+            height: 25%;
+            top: 25%;
+            left: 48.85%;
+            opacity: 0.8;  
+        }
+
+        #minute {
+            width: 1.6%;
+            height: 30%;
+            top: 19%;
+            left: 48.9%;
+            opacity: 0.8;  
+        }
+
+        #second {
+            width: 1%;
+            height: 40%;
+            top: 9%;
+            left: 49.25%;
+            opacity: 0.8; 
+        }
+
+        #clock {
+            margin-top: 20px; /* Space above the digital clock */
+            font-size: 40px; 
+            text-align: center; /* Center the text */
+        }
+    </style>
+</head>
+<body>
+    <div id="clockContainer">
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+    </div>
+    <div id="clock"></div> <!-- Digital clock below the clock -->
+
+    <script>
+        setInterval(() => {
+            const d = new Date();
+            const htime = d.getHours();
+            const mtime = d.getMinutes();
+            const stime = d.getSeconds();
+            const hrotation = 30 * htime + mtime / 2;
+            const mrotation = 6 * mtime;
+            const srotation = 6 * stime;
+
+            document.getElementById('hour').style.transform = `rotate(${hrotation}deg)`;
+            document.getElementById('minute').style.transform = `rotate(${mrotation}deg)`;
+            document.getElementById('second').style.transform = `rotate(${srotation}deg)`;
+        }, 1000);
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const period = hours >= 12 ? 'PM' : 'AM'; // Determine AM/PM
+            hours = hours % 12 || 12; // Convert to 12-hour format
+
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds} ${period}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to display clock immediately
+    </script>
+</body>
+</html>
