@@ -1,2 +1,2 @@
-# HTML-Clock-
-This project consists of HTML,CSS and JavaScript
+# HTML-Clock and python
+This contains Clock assignment using HTML,CSS and JS and also the full notes and codes of python programming
